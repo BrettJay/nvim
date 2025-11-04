@@ -15,3 +15,12 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "BufWinEnter" }, {
     vim.bo.softtabstop = 2
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  callback = function()
+    vim.opt_local.colorcolumn = "50,72"
+    vim.opt_local.textwidth = 72
+    vim.opt_local.spell = true
+  end,
+})
