@@ -4,6 +4,7 @@
 
 vim.g.maplocalleader = "|"
 vim.g.snacks_animate = false
+vim.g.startup_cwd = vim.fs.normalize(vim.uv.cwd() or ".")
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2

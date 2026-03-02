@@ -33,3 +33,25 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.fn.setpos(".", save_cursor)
   end,
 })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
+  callback = function()
+    local pick = LazyVim and LazyVim.pick
+    if not pick or pick._startup_cwd_patched then
+      return
+    end
+
+    local open = pick.open
+    pick.open = function(command, opts)
+      opts = opts or {}
+      if not opts.cwd and opts.root ~= false then
+        opts.cwd = vim.g.startup_cwd
+      end
+      return open(command, opts)
+    end
+
+    pick._startup_cwd_patched = true
+  end,
+})
