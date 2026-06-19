@@ -22,4 +22,31 @@ return {
       },
     },
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      if not vim.g.amp_monorepo then
+        return
+      end
+
+      opts.servers = opts.servers or {}
+      if opts.servers.tsgo then
+        opts.servers.tsgo = vim.tbl_deep_extend("force", opts.servers.tsgo, {
+          mason = false,
+        })
+      end
+
+      if opts.servers.tailwindcss then
+        opts.servers.tailwindcss = vim.tbl_deep_extend("force", opts.servers.tailwindcss, {
+          filetypes_exclude = {
+            "javascript",
+            "javascriptreact",
+            "markdown",
+            "typescript",
+            "typescriptreact",
+          },
+        })
+      end
+    end,
+  },
 }
